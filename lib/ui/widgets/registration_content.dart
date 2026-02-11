@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/viewmodels/auth_view_model.dart';
+import 'package:mandi/core/viewmodels/auth_view_model.dart';
 
-class LoginContent extends StatelessWidget {
+class RegistrationContent extends StatelessWidget {
   final AuthViewModel viewModel;
 
-  const LoginContent({
+  const RegistrationContent({
     super.key,
     required this.viewModel,
   });
@@ -39,14 +39,14 @@ class LoginContent extends StatelessWidget {
             valueListenable: viewModel.isBusy,
             builder: (context, isBusy, child) {
               return ElevatedButton(
-                onPressed: isBusy ? null : viewModel.loginWithCredentials,
+                onPressed: isBusy ? null : viewModel.createAccount,
                 child: isBusy
                     ? SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : Text('Inloggen'),
+                    : Text('Register'),
               );
             },
           ),
@@ -66,7 +66,7 @@ class LoginContent extends StatelessWidget {
           ),
           TextButton(
             onPressed: () => context.go('/register'),
-            child: Text('Register here'),
+            child: Text('Login here'),
           )
         ],
       ),
