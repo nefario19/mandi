@@ -1,40 +1,26 @@
 import 'package:flutter/material.dart';
 import '../../core/locator.dart';
 import '../../core/viewmodels/auth_view_model.dart';
-import 'base_view.dart';
+import 'home_view.dart';
 import 'login_view.dart';
 
-class AuthGuard extends StatefulWidget {
+class AuthGuard extends StatelessWidget {
   const AuthGuard({super.key});
 
   @override
-  State<AuthGuard> createState() => _AuthGuardState();
-}
-
-class _AuthGuardState extends State<AuthGuard> {
-  late final AuthViewModel _viewModel;
-
-  @override
-  void initState() {
-    super.initState();
-    _viewModel = locator<AuthViewModel>();
-    _viewModel.initialize();
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final authViewModel = locator<AuthViewModel>();
+    print('🔍 AuthGuard using: ${authViewModel.hashCode}');
+
     return ValueListenableBuilder(
-      valueListenable: _viewModel.currentUser,
+      valueListenable: authViewModel.currentUser,
       builder: (context, user, child) {
+        print('🏠 AuthGuard ValueListenableBuilder: user = ${user?.email ?? "NULL"}');
         if (user != null) {
+          print('➡️ Switching to HomeView');
           return HomeView();
         }
+        print('🔙 Showing LoginView');
         return LoginView();
       },
     );

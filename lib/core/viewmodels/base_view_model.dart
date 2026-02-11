@@ -25,7 +25,7 @@ class BaseViewModel {
   }
 
   void dispose() {
-    Logger.disposed(runtimeType.toString()); // ← Static call
+    Logger.disposed(runtimeType.toString());
     _isBusy.dispose();
     _errorMessage.dispose();
   }

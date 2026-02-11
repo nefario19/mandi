@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:mandi/core/locator.dart';
 import 'package:mandi/core/models/user.dart';
 import 'package:mandi/core/services/appwrite_auth_service.dart';
@@ -9,26 +9,33 @@ import 'package:mandi/core/viewmodels/base_view_model.dart';
 class AuthViewModel extends BaseViewModel {
   final AppwriteAuthService _appwriteAuthService = locator<AppwriteAuthService>();
 
-  final ValueNotifier<User?> _currentUser = ValueNotifier(null);
-  ValueListenable<User?> get currentUser => _currentUser;
+  final ValueNotifier<User?> currentUser = ValueNotifier(null);
 
   StreamSubscription? _authSubscription;
 
-  bool get isLoggedIn => _currentUser.value != null;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  void initialize() {
+  bool get isLoggedIn => currentUser.value != null;
+
+  AuthViewModel() {
+    print('🆔 AuthViewModel CREATED: $hashCode');
     _listenToAuthChanges();
   }
 
   void _listenToAuthChanges() {
+    print('🔄 AuthViewModel: Starting stream listener');
     _authSubscription = _appwriteAuthService.authStatus.listen((user) {
-      _currentUser.value = user;
+      print('👤 AuthViewModel: Stream received user: ${user?.email ?? "NULL"}');
+      print('👤 AuthViewModel: Setting currentUser to: ${user?.email ?? "NULL"}');
+      currentUser.value = user;
+      print('👤 AuthViewModel: currentUser.value is now: ${currentUser.value?.email ?? "NULL"}');
     });
   }
 
-  Future<void> loginWithCredentials(String email, String password) async {
-    email = email.trim();
-    password = password.trim();
+  Future<void> loginWithCredentials() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
 
     if (email.isEmpty) {
       setError('Vul je email in');
@@ -45,22 +52,8 @@ class AuthViewModel extends BaseViewModel {
       return;
     }
 
-    await login(email, password);
+    await _appwriteAuthService.login(email, password);
   }
-
-  Future<void> login(String email, String password) async {
-    setBusy(true);
-    clearError();
-
-    try {
-      await _appwriteAuthService.login(email, password);
-    } catch (e) {
-      setError('Login mislukt: ${e.toString()}');
-    } finally {
-      setBusy(false);
-    }
-  }
-
 
   Future<void> logout() async {
     setBusy(true);
@@ -74,9 +67,43 @@ class AuthViewModel extends BaseViewModel {
     }
   }
 
+  Future<void> createAccount() async {
+    if (emailController.text.isEmpty) {
+      setError('Vul je email in');
+      return;
+    }
+
+    if (passwordController.text.isEmpty) {
+      setError('Vul je wachtwoord in');
+      return;
+    }
+
+    if (!emailController.text.contains('@')) {
+      setError('Ongeldig emailadres');
+      return;
+    }
+
+    setBusy(true);
+    clearError();
+
+    try {
+      await _appwriteAuthService.register(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } catch (e) {
+      setError('Account creation failed: ${e.toString()}');
+    } finally {
+      setBusy(false);
+    }
+  }
+
   @override
   void dispose() {
-    _authSubscription?.cancel(); // ← Opruimen!
+    _authSubscription?.cancel();
+    currentUser.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 }
