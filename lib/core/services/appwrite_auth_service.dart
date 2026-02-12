@@ -1,14 +1,17 @@
 import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:mandi/core/constants/realtime_channels.dart';
 import 'package:mandi/core/locator.dart';
 import 'package:mandi/core/services/client_service.dart';
 import 'package:mandi/core/models/user.dart';
+import 'package:mandi/core/services/realtime_service.dart';
 import 'package:mandi/core/utils/logger.dart';
 
 class AppwriteAuthService {
   late final Client _client;
   late final Account _account;
+  late final RealtimeService _realtimeService;
 
   User? _currentUser;
   User? get currentUser => _currentUser;
@@ -16,6 +19,7 @@ class AppwriteAuthService {
   final _authController = StreamController<User?>.broadcast();
 
   Stream<User?> get authStatus => _authController.stream;
+  StreamSubscription<RealtimeMessage>? _accountEventsSubscription;
 
   bool get isLoggedIn => _currentUser != null;
   String? get userEmail => _currentUser?.email;
@@ -25,8 +29,53 @@ class AppwriteAuthService {
     Logger.init('AppwriteAuthService');
     _client = locator<ClientService>().client;
     _account = locator<ClientService>().account;
+    _realtimeService = locator<RealtimeService>();
     _checkCurrentSession();
+    _subscribeToAccountEvents();
     _client.ping();
+  }
+
+  void _subscribeToAccountEvents() {
+    Logger.info(runtimeType.toString(), '📡 Subscribing to account events');
+
+    _accountEventsSubscription = _realtimeService.subscribe(RealtimeChannels.account).listen(
+      (event) {
+        Logger.log(runtimeType.toString(), '📨 Realtime: ${event.events}');
+
+        // Session deleted
+        if (event.events.any((e) => e.contains('session') && e.contains('delete'))) {
+          Logger.info(runtimeType.toString(), '🔴 Session deleted remotely');
+          _authController.add(null);
+        }
+
+        // Account deleted
+        if (event.events
+            .any((e) => e.contains('account') && e.contains('delete') && !e.contains('session'))) {
+          _authController.add(null);
+        }
+
+        // Account updated
+        if (event.events.any((e) => e.contains('update'))) {
+          _refreshSession();
+        }
+      },
+      onError: (error) {
+        Logger.log(runtimeType.toString(), '❌ Realtime error: $error');
+      },
+    );
+  }
+
+  Future<void> _refreshSession() async {
+    try {
+      Logger.info(runtimeType.toString(), '🔄 Refreshing session...');
+      final account = await _account.get();
+      final user = User.fromAppwriteUser(account);
+      _authController.add(user);
+      Logger.info(runtimeType.toString(), '✅ Session refreshed successfully');
+    } catch (e) {
+      Logger.log(runtimeType.toString(), '❌ Refresh failed: $e');
+      _authController.add(null);
+    }
   }
 
   Future<void> _checkCurrentSession() async {
@@ -102,6 +151,7 @@ class AppwriteAuthService {
 
   void dispose() {
     Logger.disposed('AppwriteAuthService');
+    _accountEventsSubscription?.cancel();
     _authController.close();
   }
 }

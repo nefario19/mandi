@@ -1,5 +1,5 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:mandi/core/services/common/environment.dart';
+import 'package:mandi/core/constants/environment.dart';
 
 class ClientService {
   late final Client client;

@@ -13,12 +13,10 @@ class ShellView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mandi'), 
-        automaticallyImplyLeading: false, 
+        title: Center(child: Text('Mandi')),
+        automaticallyImplyLeading: false,
       ),
-
-      body: child, 
-
+      body: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _getCurrentIndex(context),
         onTap: (index) => _onItemTapped(context, index),

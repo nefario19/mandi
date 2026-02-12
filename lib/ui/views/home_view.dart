@@ -9,17 +9,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = locator<HomeViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text('Mandi'),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () => viewModel.logout(),
-          ),
-        ],
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

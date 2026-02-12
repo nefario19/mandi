@@ -5,6 +5,8 @@ import 'package:mandi/ui/views/home_view.dart';
 import 'package:mandi/ui/views/login_view.dart';
 import 'package:mandi/ui/views/profile_view.dart';
 import 'package:mandi/ui/views/registration_view.dart';
+import 'package:mandi/ui/views/reservations_view.dart';
+import 'package:mandi/ui/views/settings_view.dart';
 import 'package:mandi/ui/views/shell_view.dart';
 
 class AppRouter {
@@ -27,7 +29,16 @@ class AppRouter {
           name: 'register',
           builder: (context, state) => RegistrationView(),
         ),
-
+        GoRoute(
+          path: '/settings',
+          name: 'settings',
+          builder: (context, state) => SettingsView(),
+        ),
+        GoRoute(
+          path: '/reservationsView',
+          name: 'reservationsView',
+          builder: (context, state) => ReservationsView(),
+        ),
         ShellRoute(
           builder: (context, state, child) => ShellView(child: child),
           routes: [
