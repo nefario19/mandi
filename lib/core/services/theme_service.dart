@@ -1,43 +1,51 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mandi/core/locator.dart';
+import 'package:mandi/core/services/shared_preferences_service.dart';
+import 'package:mandi/i18n/strings.g.dart';
 import 'package:mandi/core/utils/logger.dart';
 
 class ThemeService {
   static const String _languageKey = 'app_language';
   static const String _themeModeKey = 'theme_mode';
 
-  // ✅ PRIVATE notifiers (encapsulation!)
   final ValueNotifier<Locale> _locale;
   final ValueNotifier<ThemeMode> _themeMode;
 
-  // ✅ PUBLIC listeners (read-only access)
   ValueListenable<Locale> get locale => _locale;
   ValueListenable<ThemeMode> get themeMode => _themeMode;
 
   String get currentLanguage => _locale.value.languageCode;
   bool get isDarkMode => _themeMode.value == ThemeMode.dark;
 
+  final _prefsService = locator<SharedPreferencesService>();
+
   ThemeService()
-      : _locale = ValueNotifier(const Locale('nl')),
-        _themeMode = ValueNotifier(ThemeMode.light) {
-    Logger.init(runtimeType.toString());
+      : _locale = ValueNotifier(const Locale('en')),
+        _themeMode = ValueNotifier(ThemeMode.system) {
     _loadPreferences();
+    Logger.init(runtimeType.toString());
   }
 
-  Future<void> _loadPreferences() async {
+  void _loadPreferences() {
     try {
-      final prefs = await SharedPreferences.getInstance();
-
-      // Load language
-      final savedLanguage = prefs.getString(_languageKey);
+      // Language
+      final savedLanguage = _prefsService.getString(
+        _languageKey,
+        defaultValue: 'en',
+      );
       if (savedLanguage != null) {
         _locale.value = Locale(savedLanguage);
+        LocaleSettings.setLocaleRaw(savedLanguage);
         Logger.info(runtimeType.toString(), 'Loaded language: $savedLanguage');
       }
 
       // Load theme mode
-      final savedThemeIndex = prefs.getInt(_themeModeKey);
+      final savedThemeIndex = _prefsService.getInt(
+        _themeModeKey,
+        // System theme
+        defaultValue: 1,
+      );
       if (savedThemeIndex != null) {
         _themeMode.value = ThemeMode.values[savedThemeIndex];
       }
@@ -50,10 +58,9 @@ class ThemeService {
   Future<void> setLanguage(String languageCode) async {
     try {
       _locale.value = Locale(languageCode);
+      LocaleSettings.setLocaleRaw(languageCode);
 
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_languageKey, languageCode);
-
+      await _prefsService.setString(_languageKey, languageCode);
       Logger.info(runtimeType.toString(), 'Language changed to: $languageCode');
     } catch (e) {
       Logger.error(runtimeType.toString(), 'Failed to save language: $e');
@@ -64,9 +71,7 @@ class ThemeService {
   Future<void> setThemeMode(ThemeMode mode) async {
     try {
       _themeMode.value = mode;
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(_themeModeKey, mode.index);
-
+      await _prefsService.setInt(_themeModeKey, mode.index);
       Logger.info(runtimeType.toString(), 'Theme mode changed to: $mode');
     } catch (e) {
       Logger.error(runtimeType.toString(), 'Failed to save theme mode: $e');

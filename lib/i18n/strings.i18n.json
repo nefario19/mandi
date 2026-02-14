@@ -1,0 +1,67 @@
+{
+  "@@locale": "en",
+  
+  "app": {
+    "name": "Mandi"
+  },
+
+  "navigation": {
+    "news": "News",
+    "profile": "Profile"
+  },
+
+  "home":{
+    "welcome": "Welcome"
+  },
+  
+  "common": {
+    "logout": "Logout",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete"
+  },
+  
+  "profile": {
+    "title": "Profile",
+    "settings": "Settings",
+    "myReservations": "My Reservations",
+    "memberSince": "Member since $year",
+    "myReservationsNrThisMonth": "My reservations this month $reservationsThisMonth",
+    "logout": "Logout",
+    "logoutDialog": {
+      "title": "Logout",
+      "message": "Are you sure you want to logout?",
+      "confirm": "Logout",
+      "cancel": "Cancel"
+    }
+  },
+  
+  "settings": {
+    "title": "Settings",
+    "language": {
+      "title": "Language",
+      "dutch": "Nederlands",
+      "english": "English",
+      "arabic": "العربية"
+    },
+    "theme": {
+      "title": "Display",
+      "light": "Light",
+      "lightDesc": "Always light mode",
+      "system": "System",
+      "systemDesc": "Follow device setting",
+      "dark": "Dark",
+      "darkDesc": "Always dark mode"
+    }
+  },
+  
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "email": "Email address",
+    "password": "Password",
+    "notLoggedIn": "Not logged in",
+    "registerHere": "Register here"
+  }
+}

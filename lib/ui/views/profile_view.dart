@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mandi/core/constants/environment.dart';
 import 'package:mandi/core/viewmodels/profile_view_model.dart';
 import 'package:mandi/ui/common/view_model_builder.dart';
-import 'package:mandi/ui/widgets/profile/profile_action_button.dart';
+import 'package:mandi/ui/widgets/common/action_tile.dart';
+import 'package:mandi/ui/widgets/common/mandi_divider.dart';
 import 'package:mandi/ui/widgets/profile/user_info_card.dart';
 import 'package:mandi/ui/widgets/profile/app_version_footer.dart';
+
+import 'package:mandi/i18n/strings.g.dart'; // ← Import!
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -13,95 +17,59 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final t = Translations.of(context); // ← Get translations!
 
     return ViewModelBuilder<ProfileViewModel>(
       builder: (context, viewModel) {
         return Scaffold(
-          backgroundColor: theme.scaffoldBackgroundColor,
           body: ValueListenableBuilder(
             valueListenable: viewModel.currentUserNotifier,
             builder: (context, user, child) {
               if (user == null) {
-                return const Center(
-                  child: Text('Niet ingelogd'),
+                return Center(
+                  child: Text(t.auth.notLoggedIn), // ✅ Type-safe!
                 );
               }
 
               return SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: Environment.size16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ====================
-                    // PROFIEL TITEL
-                    // ====================
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        'Profiel',
-                        style: theme.textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const Gap(24),
-
-                    // ====================
-                    // USER INFO CARD
-                    // ====================
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: UserInfoCard(user: user),
+                    // UserInfoCard
+                    UserInfoCard(user: user),
+                    const Gap(20),
+                    MandiDivider(
+                      shape: BoxShape.circle,
                     ),
                     const Gap(20),
 
-                    // ====================
-                    // INSTELLINGEN
-                    // ====================
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: ProfileActionButton(
-                        icon: Icons.settings_rounded,
-                        label: 'Settings',
-                        onTap: () => context.push('/settings'),
-                        showChevron: true,
-                        iconColor: theme.iconTheme.color,
-                        backgroundColor: theme.cardColor,
-                      ),
+                    // Settings
+                    ActionTile(
+                      icon: Icons.settings_outlined,
+                      label: t.profile.settings, // ✅ Translated!
+                      onTap: () => context.push('/settings'),
                     ),
                     const Gap(12),
 
-                    // ====================
-                    // MIJN RESERVERINGEN
-                    // ====================
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: ProfileActionButton(
-                        icon: Icons.calendar_today_rounded,
-                        iconColor: theme.iconTheme.color,
-                        label: 'My reservations',
-                        onTap: () => context.push('/reservationsView'),
-                      ),
+                    // Reservations
+                    ActionTile(
+                      icon: Icons.calendar_today_outlined,
+                      label: t.profile.myReservations, // ✅ Translated!
+                      onTap: () => context.push('/reservationsView'),
                     ),
                     const Gap(20),
 
-                    // ====================
-                    // UITLOGGEN
-                    // ====================
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: ProfileActionButton(
-                        icon: Icons.logout_rounded,
-                        label: 'Logout',
-                        onTap: () => {},
-                        isDanger: true,
-                        backgroundColor: Colors.red.withValues(alpha: 0.1),
-                      ),
+                    // Logout
+                    ActionTile(
+                      icon: Icons.logout,
+                      label: t.profile.logout, // ✅ Translated!
+                      onTap: () => _showLogoutDialog(context, viewModel),
+                      isDanger: true,
+                      showChevron: false,
+                      centerContent: true,
                     ),
                     const Gap(32),
 
-                    // ====================
-                    // APP VERSION
-                    // ====================
                     const Center(child: AppVersionFooter()),
                     const Gap(32),
                   ],
@@ -119,6 +87,7 @@ class ProfileView extends StatelessWidget {
     ProfileViewModel viewModel,
   ) async {
     final theme = Theme.of(context);
+    final t = Translations.of(context); // ← Get translations!
 
     final confirmed = await showDialog<bool>(
       context: context,
@@ -131,15 +100,15 @@ class ProfileView extends StatelessWidget {
           children: [
             Icon(Icons.logout, color: Colors.red),
             const Gap(12),
-            const Text('Uitloggen'),
+            Text(t.profile.logoutDialog.title), // ✅ "Uitloggen" / "Logout"
           ],
         ),
-        content: const Text('Weet je zeker dat je wilt uitloggen?'),
+        content: Text(t.profile.logoutDialog.message), // ✅ Translated!
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
             child: Text(
-              'Annuleren',
+              t.profile.logoutDialog.cancel, // ✅ "Annuleren" / "Cancel"
               style: TextStyle(color: theme.colorScheme.secondary),
             ),
           ),
@@ -148,7 +117,7 @@ class ProfileView extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: Colors.red,
             ),
-            child: const Text('Uitloggen'),
+            child: Text(t.profile.logoutDialog.confirm), // ✅ "Uitloggen" / "Logout"
           ),
         ],
       ),

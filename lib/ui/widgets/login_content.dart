@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mandi/i18n/strings.g.dart';
 import '../../core/viewmodels/auth_view_model.dart';
 
 class LoginContent extends StatelessWidget {
@@ -12,6 +13,7 @@ class LoginContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return Padding(
       padding: EdgeInsets.all(16),
       child: Column(
@@ -20,7 +22,7 @@ class LoginContent extends StatelessWidget {
           TextField(
             controller: viewModel.emailController,
             decoration: InputDecoration(
-              labelText: 'Email',
+              labelText: t.auth.email,
               border: OutlineInputBorder(),
             ),
             keyboardType: TextInputType.emailAddress,
@@ -29,7 +31,7 @@ class LoginContent extends StatelessWidget {
           TextField(
             controller: viewModel.passwordController,
             decoration: InputDecoration(
-              labelText: 'Wachtwoord',
+              labelText: t.auth.password,
               border: OutlineInputBorder(),
             ),
             obscureText: true,
@@ -46,7 +48,7 @@ class LoginContent extends StatelessWidget {
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : Text('Inloggen'),
+                    : Text(t.auth.login),
               );
             },
           ),
@@ -66,7 +68,7 @@ class LoginContent extends StatelessWidget {
           ),
           TextButton(
             onPressed: () => context.go('/register'),
-            child: Text('Register here'),
+            child: Text(t.auth.registerHere),
           )
         ],
       ),

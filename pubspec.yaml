@@ -19,6 +19,10 @@ dependencies:
   package_info_plus: ^8.3.1
   gap: ^3.0.1
   multi_listenable: ^0.9.3
+  slang: ^4.12.1
+  slang_flutter: ^4.12.1
+  slang_build_runner: ^4.12.1
+  build_runner: ^2.4.15
 
 dev_dependencies:
   flutter_test:

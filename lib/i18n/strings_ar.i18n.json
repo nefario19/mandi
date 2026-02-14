@@ -1,0 +1,67 @@
+{
+  "@@locale": "ar",
+  
+  "app": {
+    "name": "ماندي"
+  },
+
+  "navigation": {
+    "news": "الأخبار",
+    "profile": "الملف الشخصي"
+  },
+
+  "home":{
+    "welcome": "أهلاً وسهلاً"
+  },
+  
+  "common": {
+    "logout": "تسجيل الخروج",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "save": "حفظ",
+    "delete": "حذف"
+  },
+  
+  "profile": {
+    "title": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "myReservations": "حجوزاتي",
+    "memberSince": "عضو منذ $year",
+    "myReservationsNrThisMonth": "حجوزاتي هذا الشهر $reservationsThisMonth",
+    "logout": "تسجيل الخروج",
+    "logoutDialog": {
+      "title": "تسجيل الخروج",
+      "message": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+      "confirm": "تسجيل الخروج",
+      "cancel": "إلغاء"
+    }
+  },
+  
+  "settings": {
+    "title": "الإعدادات",
+    "language": {
+      "title": "اللغة",
+      "dutch": "Nederlands",
+      "english": "English",
+      "arabic": "العربية"
+    },
+    "theme": {
+      "title": "العرض",
+      "light": "فاتح",
+      "lightDesc": "الوضع الفاتح دائماً",
+      "system": "النظام",
+      "systemDesc": "اتبع إعداد الجهاز",
+      "dark": "داكن",
+      "darkDesc": "الوضع الداكن دائماً"
+    }
+  },
+  
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "notLoggedIn": "غير مسجل الدخول",
+    "registerHere": "سجِّل هنا"
+  }
+}

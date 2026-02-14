@@ -19,17 +19,12 @@ class AuthViewModel extends BaseViewModel {
   bool get isLoggedIn => currentUser.value != null;
 
   AuthViewModel() {
-    print('🆔 AuthViewModel CREATED: $hashCode');
     _listenToAuthChanges();
   }
 
   void _listenToAuthChanges() {
-    print('🔄 AuthViewModel: Starting stream listener');
     _authSubscription = _appwriteAuthService.authStatus.listen((user) {
-      print('👤 AuthViewModel: Stream received user: ${user?.email ?? "NULL"}');
-      print('👤 AuthViewModel: Setting currentUser to: ${user?.email ?? "NULL"}');
       currentUser.value = user;
-      print('👤 AuthViewModel: currentUser.value is now: ${currentUser.value?.email ?? "NULL"}');
     });
   }
 

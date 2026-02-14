@@ -1,0 +1,68 @@
+{
+  "@@locale": "nl",
+  "@@context": "app",
+  
+  "app": {
+    "name": "Mandi"
+  },
+  
+  "navigation": {
+    "news": "Nieuws",
+    "profile": "Profiel"
+  },
+
+  "home":{
+    "welcome": "Welkom"
+  },
+  
+  "common": {
+    "logout": "Uitloggen",
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen",
+    "save": "Opslaan",
+    "delete": "Verwijderen"
+  },
+  
+  "profile": {
+    "title": "Profiel",
+    "settings": "Instellingen",
+    "myReservations": "Mijn Reserveringen",
+    "memberSince": "Lid sinds $year",
+    "myReservationsNrThisMonth": "Mijn reserveringen deze maand $reservationsThisMonth",
+    "logout": "Uitloggen",
+    "logoutDialog": {
+      "title": "Uitloggen",
+      "message": "Weet je zeker dat je wilt uitloggen?",
+      "confirm": "Uitloggen",
+      "cancel": "Annuleren"
+    }
+  },
+  
+  "settings": {
+    "title": "Instellingen",
+    "language": {
+      "title": "Taal",
+      "dutch": "Nederlands",
+      "english": "English",
+      "arabic": "العربية"
+    },
+    "theme": {
+      "title": "Weergave",
+      "light": "Licht",
+      "lightDesc": "Altijd lichte modus",
+      "system": "Systeem",
+      "systemDesc": "Volg iPhone/iPad instelling",
+      "dark": "Donker",
+      "darkDesc": "Altijd donkere modus"
+    }
+  },
+  
+  "auth": {
+    "login": "Inloggen",
+    "logout": "Uitloggen",
+    "email": "E-mailadres",
+    "password": "Wachtwoord",
+    "notLoggedIn": "Niet ingelogd",
+    "registerHere": "Registreer hier"
+  }
+}

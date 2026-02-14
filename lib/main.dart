@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mandi/core/locator.dart';
 import 'package:mandi/core/router/app_router.dart';
 import 'package:mandi/core/services/app_info_service.dart';
+import 'package:mandi/core/services/shared_preferences_service.dart';
 import 'package:mandi/core/services/theme_service.dart';
 import 'package:mandi/ui/common/theme.dart';
+import 'package:mandi/i18n/strings.g.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
   setupLocator();
+  await locator<SharedPreferencesService>().initialize();
   await locator<AppInfoService>().initialize();
-  runApp(MyApp());
+  runApp(TranslationProvider(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -29,10 +34,16 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp.router(
           title: 'Mandi',
+          locale: TranslationProvider.of(context).flutterLocale,
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           theme: getLightTheme(),
           darkTheme: getDarkTheme(),
           themeMode: themeService.themeMode.value,
-          locale: themeService.locale.value,
           routerConfig: _appRouter.router,
         );
       },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mandi/core/locator.dart';
 import 'package:mandi/core/viewmodels/home_view_model.dart';
+import 'package:mandi/i18n/strings.g.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -8,6 +9,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = locator<HomeViewModel>();
+    final t = Translations.of(context);
     return Scaffold(
       body: Center(
         child: Column(
@@ -16,7 +18,7 @@ class HomeView extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  'Welkom!',
+                  t.home.welcome,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 SizedBox(height: 8),
@@ -27,21 +29,6 @@ class HomeView extends StatelessWidget {
               ],
             ),
             SizedBox(height: 24),
-            ValueListenableBuilder<bool>(
-              valueListenable: viewModel.isBusy,
-              builder: (context, isBusy, child) {
-                return ElevatedButton(
-                  onPressed: isBusy ? null : () => viewModel.logout(),
-                  child: isBusy
-                      ? SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text('Uitloggen'),
-                );
-              },
-            ),
           ],
         ),
       ),
