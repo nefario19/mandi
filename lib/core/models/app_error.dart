@@ -1,4 +1,6 @@
-// lib/core/models/app_error.dart
+import 'package:flutter/material.dart';
+import 'package:mandi/core/locator.dart';
+import 'package:mandi/i18n/strings.g.dart';
 
 enum ErrorType {
   // Network
@@ -14,6 +16,8 @@ enum ErrorType {
   fileNotFound,
   fileTooLarge,
   invalidFileType,
+  permissionDenied,
+  permissionPermanentlyDenied,
 
   // Server
   serverError,
@@ -29,12 +33,12 @@ enum ErrorType {
 
 class AppError implements Exception {
   final ErrorType type;
-  final String message; // User-friendly message
-  final String? technicalDetails; // For developer logs
-  final int? statusCode; // HTTP status code
+  final String message;
+  final String? technicalDetails;
+  final int? statusCode;
   final DateTime timestamp;
-  final StackTrace? stackTrace; // ← YOU REQUESTED!
-  final String? userId; // ← YOU REQUESTED! (for logging)
+  final StackTrace? stackTrace;
+  final String? userId;
 
   AppError({
     required this.type,
@@ -53,13 +57,11 @@ class AppError implements Exception {
         '${userId != null ? '\nUser: $userId' : ''}';
   }
 
-  // Factory constructors
-
   // Network
   factory AppError.network({String? details, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.network,
-      message: 'No internet connection',
+      message: ErrorType.network.name,
       technicalDetails: details,
       stackTrace: stackTrace,
     );
@@ -68,7 +70,7 @@ class AppError implements Exception {
   factory AppError.timeout({String? details, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.timeout,
-      message: 'Request timed out',
+      message: ErrorType.timeout.name,
       technicalDetails: details,
       stackTrace: stackTrace,
     );
@@ -78,7 +80,7 @@ class AppError implements Exception {
   factory AppError.sessionExpired({StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.sessionExpired,
-      message: 'Your session has expired. Please login again.',
+      message: ErrorType.sessionExpired.name,
       statusCode: 401,
       stackTrace: stackTrace,
     );
@@ -87,7 +89,7 @@ class AppError implements Exception {
   factory AppError.unauthorized({String? details, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.unauthorized,
-      message: 'You don\'t have permission to access this.',
+      message: ErrorType.unauthorized.name,
       technicalDetails: details,
       statusCode: 403,
       stackTrace: stackTrace,
@@ -97,7 +99,7 @@ class AppError implements Exception {
   factory AppError.invalidCredentials({StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.invalidCredentials,
-      message: 'Invalid email or password.',
+      message: ErrorType.invalidCredentials.name,
       statusCode: 401,
       stackTrace: stackTrace,
     );
@@ -107,7 +109,7 @@ class AppError implements Exception {
   factory AppError.fileNotFound({String? fileName, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.fileNotFound,
-      message: 'File not found',
+      message: ErrorType.fileNotFound.name,
       technicalDetails: fileName,
       statusCode: 404,
       stackTrace: stackTrace,
@@ -117,7 +119,7 @@ class AppError implements Exception {
   factory AppError.fileTooLarge({int? maxSize, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.fileTooLarge,
-      message: 'File is too large',
+      message: ErrorType.fileTooLarge.name,
       technicalDetails: maxSize != null ? 'Max size: $maxSize bytes' : null,
       statusCode: 400,
       stackTrace: stackTrace,
@@ -127,7 +129,7 @@ class AppError implements Exception {
   factory AppError.invalidFileType({String? expectedType, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.invalidFileType,
-      message: 'Invalid file type',
+      message: ErrorType.invalidFileType.name,
       technicalDetails: expectedType,
       statusCode: 400,
       stackTrace: stackTrace,
@@ -138,7 +140,7 @@ class AppError implements Exception {
   factory AppError.serverError({String? details, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.serverError,
-      message: 'Something went wrong. Please try again later.',
+      message: ErrorType.serverError.name,
       technicalDetails: details,
       statusCode: 500,
       stackTrace: stackTrace,
@@ -148,7 +150,7 @@ class AppError implements Exception {
   factory AppError.rateLimitExceeded({StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.rateLimitExceeded,
-      message: 'Too many requests. Please slow down.',
+      message: ErrorType.rateLimitExceeded.name,
       statusCode: 429,
       stackTrace: stackTrace,
     );
@@ -158,7 +160,7 @@ class AppError implements Exception {
   factory AppError.notFound({String? resource, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.notFound,
-      message: 'Resource not found',
+      message: ErrorType.notFound.name,
       technicalDetails: resource,
       statusCode: 404,
       stackTrace: stackTrace,
@@ -172,7 +174,7 @@ class AppError implements Exception {
   }) {
     return AppError(
       type: ErrorType.validation,
-      message: 'Invalid $field: $reason',
+      message: ErrorType.validation.name,
       technicalDetails: 'Field: $field, Reason: $reason',
       stackTrace: stackTrace,
     );
@@ -182,7 +184,26 @@ class AppError implements Exception {
   factory AppError.unknown({String? details, StackTrace? stackTrace}) {
     return AppError(
       type: ErrorType.unknown,
-      message: 'An unexpected error occurred.',
+      message: ErrorType.unknown.name,
+      technicalDetails: details,
+      stackTrace: stackTrace,
+    );
+  }
+
+// Permissions
+  factory AppError.permissionDenied({String? details, StackTrace? stackTrace}) {
+    return AppError(
+      type: ErrorType.permissionDenied,
+      message: ErrorType.permissionDenied.name,
+      technicalDetails: details,
+      stackTrace: stackTrace,
+    );
+  }
+
+  factory AppError.permissionPermanentlyDenied({String? details, StackTrace? stackTrace}) {
+    return AppError(
+      type: ErrorType.permissionPermanentlyDenied,
+      message: ErrorType.permissionPermanentlyDenied.name,
       technicalDetails: details,
       stackTrace: stackTrace,
     );

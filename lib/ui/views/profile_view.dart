@@ -16,18 +16,17 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final t = Translations.of(context); // ← Get translations!
+    final t = Translations.of(context); 
 
     return ViewModelBuilder<ProfileViewModel>(
       builder: (context, viewModel) {
         return Scaffold(
           body: ValueListenableBuilder(
-            valueListenable: viewModel.currentUserNotifier,
+            valueListenable: viewModel.currentUser,
             builder: (context, user, child) {
               if (user == null) {
                 return Center(
-                  child: Text(t.auth.notLoggedIn), // ✅ Type-safe!
+                  child: Text(t.auth.notLoggedIn),
                 );
               }
 
@@ -36,7 +35,10 @@ class ProfileView extends StatelessWidget {
                 child: Column(
                   children: [
                     // UserInfoCard
-                    UserInfoCard(user: user),
+                    UserInfoCard(
+                      user: user,
+                      viewModel: viewModel,
+                    ),
                     const Gap(20),
                     MandiDivider(
                       shape: BoxShape.circle,
@@ -46,7 +48,7 @@ class ProfileView extends StatelessWidget {
                     // Settings
                     ActionTile(
                       icon: Icons.settings_outlined,
-                      label: t.profile.settings, // ✅ Translated!
+                      label: t.profile.settings,
                       onTap: () => context.push('/settings'),
                     ),
                     const Gap(12),
@@ -54,7 +56,7 @@ class ProfileView extends StatelessWidget {
                     // Reservations
                     ActionTile(
                       icon: Icons.calendar_today_outlined,
-                      label: t.profile.myReservations, // ✅ Translated!
+                      label: t.profile.myReservations,
                       onTap: () => context.push('/reservationsView'),
                     ),
                     const Gap(20),
@@ -62,8 +64,8 @@ class ProfileView extends StatelessWidget {
                     // Logout
                     ActionTile(
                       icon: Icons.logout,
-                      label: t.profile.logout, // ✅ Translated!
-                      onTap: () => _showLogoutDialog(context, viewModel),
+                      label: t.profile.logout,
+                      onTap: () => viewModel.logout(),
                       isDanger: true,
                       showChevron: false,
                       centerContent: true,
@@ -80,51 +82,5 @@ class ProfileView extends StatelessWidget {
         );
       },
     );
-  }
-
-  Future<void> _showLogoutDialog(
-    BuildContext context,
-    ProfileViewModel viewModel,
-  ) async {
-    final theme = Theme.of(context);
-    final t = Translations.of(context); // ← Get translations!
-
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: theme.colorScheme.surface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        title: Row(
-          children: [
-            Icon(Icons.logout, color: Colors.red),
-            const Gap(12),
-            Text(t.profile.logoutDialog.title), // ✅ "Uitloggen" / "Logout"
-          ],
-        ),
-        content: Text(t.profile.logoutDialog.message), // ✅ Translated!
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(
-              t.profile.logoutDialog.cancel, // ✅ "Annuleren" / "Cancel"
-              style: TextStyle(color: theme.colorScheme.secondary),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.red,
-            ),
-            child: Text(t.profile.logoutDialog.confirm), // ✅ "Uitloggen" / "Logout"
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed == true && context.mounted) {
-      await viewModel.logout();
-    }
   }
 }

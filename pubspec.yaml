@@ -23,6 +23,10 @@ dependencies:
   slang_flutter: ^4.12.1
   slang_build_runner: ^4.12.1
   build_runner: ^2.4.15
+  another_flushbar: ^1.12.32
+  image: ^4.7.2
+  image_picker: ^1.2.0
+  permission_handler: ^12.0.1
 
 dev_dependencies:
   flutter_test:

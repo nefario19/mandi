@@ -20,7 +20,70 @@
     "cancel": "Annuleren",
     "confirm": "Bevestigen",
     "save": "Opslaan",
-    "delete": "Verwijderen"
+    "delete": "Verwijderen",
+    "ok": "OK",
+    "close": "Sluiten",
+    "yes": "Ja",
+    "no": "Nee"
+  },
+  
+  "dialog": {
+    "error": {
+      "title": "Fout",
+      "defaultMessage": "Er is iets misgegaan",
+      "details": "Details",
+      "close": "Sluiten"
+    },
+    "confirmation": {
+      "defaultTitle": "Bevestigen",
+      "defaultMessage": "Weet je het zeker?",
+      "confirm": "Bevestigen",
+      "cancel": "Annuleren"
+    },
+    "info": {
+      "title": "Informatie",
+      "ok": "OK"
+    }
+  },
+  
+  "errors": {
+    "titles": {
+      "network": "Netwerkfout",
+      "timeout": "Time-out",
+      "sessionExpired": "Sessie Verlopen",
+      "unauthorized": "Geen Toegang",
+      "invalidCredentials": "Login Mislukt",
+      "fileNotFound": "Bestand Niet Gevonden",
+      "fileTooLarge": "Bestand Te Groot",
+      "invalidFileType": "Ongeldig Bestandstype",
+      "permissionDenied": "Geen Toegang",
+      "permissionPermanentlyDenied": "Toegang Vereist",
+      "serverError": "Serverfout",
+      "rateLimitExceeded": "Te Veel Verzoeken",
+      "notFound": "Niet Gevonden",
+      "validation": "Validatiefout",
+      "unknown": "Fout"
+    },
+    "messages": {
+      "network": "Geen internetverbinding",
+      "timeout": "Verzoek duurde te lang",
+      "sessionExpired": "Je sessie is verlopen. Log opnieuw in.",
+      "unauthorized": "Je hebt geen toestemming om dit te openen.",
+      "invalidCredentials": "Ongeldig e-mailadres of wachtwoord.",
+      "fileNotFound": "Bestand niet gevonden",
+      "fileTooLarge": "Bestand is te groot",
+      "invalidFileType": "Ongeldig bestandstype",
+      "permissionDenied": "Je hebt geen toestemming gegeven om foto's te gebruiken.",
+      "permissionPermanentlyDenied": "Ga naar Instellingen om toegang tot foto's te geven.",
+      "serverError": "Er is iets misgegaan. Probeer het later opnieuw.",
+      "rateLimitExceeded": "Te veel verzoeken. Wacht even.",
+      "notFound": "Bron niet gevonden",
+      "validationWithField": "Ongeldig $field: $reason",
+      "unknown": "Er is een onverwachte fout opgetreden."
+    },
+    "actions": {
+      "goToSettings": "Naar Instellingen"
+    }
   },
   
   "profile": {

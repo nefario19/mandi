@@ -41,6 +41,8 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsNavigationNl navigation = _TranslationsNavigationNl._(_root);
 	@override late final _TranslationsHomeNl home = _TranslationsHomeNl._(_root);
 	@override late final _TranslationsCommonNl common = _TranslationsCommonNl._(_root);
+	@override late final _TranslationsDialogNl dialog = _TranslationsDialogNl._(_root);
+	@override late final _TranslationsErrorsNl errors = _TranslationsErrorsNl._(_root);
 	@override late final _TranslationsProfileNl profile = _TranslationsProfileNl._(_root);
 	@override late final _TranslationsSettingsNl settings = _TranslationsSettingsNl._(_root);
 	@override late final _TranslationsAuthNl auth = _TranslationsAuthNl._(_root);
@@ -89,6 +91,34 @@ class _TranslationsCommonNl implements TranslationsCommonEn {
 	@override String get confirm => 'Bevestigen';
 	@override String get save => 'Opslaan';
 	@override String get delete => 'Verwijderen';
+	@override String get ok => 'OK';
+	@override String get close => 'Sluiten';
+	@override String get yes => 'Ja';
+	@override String get no => 'Nee';
+}
+
+// Path: dialog
+class _TranslationsDialogNl implements TranslationsDialogEn {
+	_TranslationsDialogNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsDialogErrorNl error = _TranslationsDialogErrorNl._(_root);
+	@override late final _TranslationsDialogConfirmationNl confirmation = _TranslationsDialogConfirmationNl._(_root);
+	@override late final _TranslationsDialogInfoNl info = _TranslationsDialogInfoNl._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsNl implements TranslationsErrorsEn {
+	_TranslationsErrorsNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsErrorsTitlesNl titles = _TranslationsErrorsTitlesNl._(_root);
+	@override late final _TranslationsErrorsMessagesNl messages = _TranslationsErrorsMessagesNl._(_root);
+	@override late final _TranslationsErrorsActionsNl actions = _TranslationsErrorsActionsNl._(_root);
 }
 
 // Path: profile
@@ -132,6 +162,101 @@ class _TranslationsAuthNl implements TranslationsAuthEn {
 	@override String get password => 'Wachtwoord';
 	@override String get notLoggedIn => 'Niet ingelogd';
 	@override String get registerHere => 'Registreer hier';
+}
+
+// Path: dialog.error
+class _TranslationsDialogErrorNl implements TranslationsDialogErrorEn {
+	_TranslationsDialogErrorNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Fout';
+	@override String get defaultMessage => 'Er is iets misgegaan';
+	@override String get details => 'Details';
+	@override String get close => 'Sluiten';
+}
+
+// Path: dialog.confirmation
+class _TranslationsDialogConfirmationNl implements TranslationsDialogConfirmationEn {
+	_TranslationsDialogConfirmationNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get defaultTitle => 'Bevestigen';
+	@override String get defaultMessage => 'Weet je het zeker?';
+	@override String get confirm => 'Bevestigen';
+	@override String get cancel => 'Annuleren';
+}
+
+// Path: dialog.info
+class _TranslationsDialogInfoNl implements TranslationsDialogInfoEn {
+	_TranslationsDialogInfoNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Informatie';
+	@override String get ok => 'OK';
+}
+
+// Path: errors.titles
+class _TranslationsErrorsTitlesNl implements TranslationsErrorsTitlesEn {
+	_TranslationsErrorsTitlesNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get network => 'Netwerkfout';
+	@override String get timeout => 'Time-out';
+	@override String get sessionExpired => 'Sessie Verlopen';
+	@override String get unauthorized => 'Geen Toegang';
+	@override String get invalidCredentials => 'Login Mislukt';
+	@override String get fileNotFound => 'Bestand Niet Gevonden';
+	@override String get fileTooLarge => 'Bestand Te Groot';
+	@override String get invalidFileType => 'Ongeldig Bestandstype';
+	@override String get permissionDenied => 'Geen Toegang';
+	@override String get permissionPermanentlyDenied => 'Toegang Vereist';
+	@override String get serverError => 'Serverfout';
+	@override String get rateLimitExceeded => 'Te Veel Verzoeken';
+	@override String get notFound => 'Niet Gevonden';
+	@override String get validation => 'Validatiefout';
+	@override String get unknown => 'Fout';
+}
+
+// Path: errors.messages
+class _TranslationsErrorsMessagesNl implements TranslationsErrorsMessagesEn {
+	_TranslationsErrorsMessagesNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get network => 'Geen internetverbinding';
+	@override String get timeout => 'Verzoek duurde te lang';
+	@override String get sessionExpired => 'Je sessie is verlopen. Log opnieuw in.';
+	@override String get unauthorized => 'Je hebt geen toestemming om dit te openen.';
+	@override String get invalidCredentials => 'Ongeldig e-mailadres of wachtwoord.';
+	@override String get fileNotFound => 'Bestand niet gevonden';
+	@override String get fileTooLarge => 'Bestand is te groot';
+	@override String get invalidFileType => 'Ongeldig bestandstype';
+	@override String get permissionDenied => 'Je hebt geen toestemming gegeven om foto\'s te gebruiken.';
+	@override String get permissionPermanentlyDenied => 'Ga naar Instellingen om toegang tot foto\'s te geven.';
+	@override String get serverError => 'Er is iets misgegaan. Probeer het later opnieuw.';
+	@override String get rateLimitExceeded => 'Te veel verzoeken. Wacht even.';
+	@override String get notFound => 'Bron niet gevonden';
+	@override String validationWithField({required Object field, required Object reason}) => 'Ongeldig ${field}: ${reason}';
+	@override String get unknown => 'Er is een onverwachte fout opgetreden.';
+}
+
+// Path: errors.actions
+class _TranslationsErrorsActionsNl implements TranslationsErrorsActionsEn {
+	_TranslationsErrorsActionsNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get goToSettings => 'Naar Instellingen';
 }
 
 // Path: profile.logoutDialog
@@ -193,6 +318,51 @@ extension on TranslationsNl {
 			'common.confirm' => 'Bevestigen',
 			'common.save' => 'Opslaan',
 			'common.delete' => 'Verwijderen',
+			'common.ok' => 'OK',
+			'common.close' => 'Sluiten',
+			'common.yes' => 'Ja',
+			'common.no' => 'Nee',
+			'dialog.error.title' => 'Fout',
+			'dialog.error.defaultMessage' => 'Er is iets misgegaan',
+			'dialog.error.details' => 'Details',
+			'dialog.error.close' => 'Sluiten',
+			'dialog.confirmation.defaultTitle' => 'Bevestigen',
+			'dialog.confirmation.defaultMessage' => 'Weet je het zeker?',
+			'dialog.confirmation.confirm' => 'Bevestigen',
+			'dialog.confirmation.cancel' => 'Annuleren',
+			'dialog.info.title' => 'Informatie',
+			'dialog.info.ok' => 'OK',
+			'errors.titles.network' => 'Netwerkfout',
+			'errors.titles.timeout' => 'Time-out',
+			'errors.titles.sessionExpired' => 'Sessie Verlopen',
+			'errors.titles.unauthorized' => 'Geen Toegang',
+			'errors.titles.invalidCredentials' => 'Login Mislukt',
+			'errors.titles.fileNotFound' => 'Bestand Niet Gevonden',
+			'errors.titles.fileTooLarge' => 'Bestand Te Groot',
+			'errors.titles.invalidFileType' => 'Ongeldig Bestandstype',
+			'errors.titles.permissionDenied' => 'Geen Toegang',
+			'errors.titles.permissionPermanentlyDenied' => 'Toegang Vereist',
+			'errors.titles.serverError' => 'Serverfout',
+			'errors.titles.rateLimitExceeded' => 'Te Veel Verzoeken',
+			'errors.titles.notFound' => 'Niet Gevonden',
+			'errors.titles.validation' => 'Validatiefout',
+			'errors.titles.unknown' => 'Fout',
+			'errors.messages.network' => 'Geen internetverbinding',
+			'errors.messages.timeout' => 'Verzoek duurde te lang',
+			'errors.messages.sessionExpired' => 'Je sessie is verlopen. Log opnieuw in.',
+			'errors.messages.unauthorized' => 'Je hebt geen toestemming om dit te openen.',
+			'errors.messages.invalidCredentials' => 'Ongeldig e-mailadres of wachtwoord.',
+			'errors.messages.fileNotFound' => 'Bestand niet gevonden',
+			'errors.messages.fileTooLarge' => 'Bestand is te groot',
+			'errors.messages.invalidFileType' => 'Ongeldig bestandstype',
+			'errors.messages.permissionDenied' => 'Je hebt geen toestemming gegeven om foto\'s te gebruiken.',
+			'errors.messages.permissionPermanentlyDenied' => 'Ga naar Instellingen om toegang tot foto\'s te geven.',
+			'errors.messages.serverError' => 'Er is iets misgegaan. Probeer het later opnieuw.',
+			'errors.messages.rateLimitExceeded' => 'Te veel verzoeken. Wacht even.',
+			'errors.messages.notFound' => 'Bron niet gevonden',
+			'errors.messages.validationWithField' => ({required Object field, required Object reason}) => 'Ongeldig ${field}: ${reason}',
+			'errors.messages.unknown' => 'Er is een onverwachte fout opgetreden.',
+			'errors.actions.goToSettings' => 'Naar Instellingen',
 			'profile.title' => 'Profiel',
 			'profile.settings' => 'Instellingen',
 			'profile.myReservations' => 'Mijn Reserveringen',

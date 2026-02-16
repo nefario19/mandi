@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mandi/core/models/user.dart';
 import 'package:mandi/core/constants/environment.dart';
+import 'package:mandi/core/viewmodels/profile_view_model.dart';
 import 'package:mandi/i18n/strings.g.dart';
 import 'package:mandi/ui/widgets/common/mandi_divider.dart';
 
 class UserInfoCard extends StatelessWidget {
   final User user;
+  final ProfileViewModel viewModel;
 
   const UserInfoCard({
     super.key,
     required this.user,
+    required this.viewModel,
   });
 
   @override
@@ -32,20 +35,51 @@ class UserInfoCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: Environment.size40,
-                  backgroundColor: theme.colorScheme.secondary.withValues(alpha: 0.2),
-                  child: Icon(
-                    Icons.person,
-                    size: Environment.size40,
-                    color: theme.colorScheme.secondary,
-                  ),
-                ),
+                ValueListenableBuilder(
+                    valueListenable: viewModel.currentUser,
+                    builder: (context, user, _) {
+                      return Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: Environment.size40,
+                            backgroundColor: user?.avatarUrl == null
+                                ? theme.colorScheme.secondary.withValues(alpha: 0.2)
+                                : null,
+                            backgroundImage:
+                                user?.avatarUrl != null ? NetworkImage(user!.avatarUrl!) : null,
+                            child: user?.avatarUrl == null
+                                ? Icon(
+                                    Icons.person,
+                                    size: Environment.size40,
+                                    color: theme.colorScheme.secondary,
+                                  )
+                                : null,
+                          ),
+
+                          // ✅ Camera icon overlay (bottom-right)
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: CircleAvatar(
+                              radius: Environment.size16,
+                              backgroundColor: theme.colorScheme.primary,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.camera_alt,
+                                  size: Environment.size16,
+                                ),
+                                onPressed: () => viewModel.updateAvatar(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
                 Gap(Environment.size16),
                 Column(
                   children: [
                     Text(
-                      user.name,
+                      user.fullName,
                       style: theme.textTheme.titleLarge,
                       textAlign: TextAlign.start,
                     ),

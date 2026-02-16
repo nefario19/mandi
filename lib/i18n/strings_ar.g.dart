@@ -41,6 +41,8 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsNavigationAr navigation = _TranslationsNavigationAr._(_root);
 	@override late final _TranslationsHomeAr home = _TranslationsHomeAr._(_root);
 	@override late final _TranslationsCommonAr common = _TranslationsCommonAr._(_root);
+	@override late final _TranslationsDialogAr dialog = _TranslationsDialogAr._(_root);
+	@override late final _TranslationsErrorsAr errors = _TranslationsErrorsAr._(_root);
 	@override late final _TranslationsProfileAr profile = _TranslationsProfileAr._(_root);
 	@override late final _TranslationsSettingsAr settings = _TranslationsSettingsAr._(_root);
 	@override late final _TranslationsAuthAr auth = _TranslationsAuthAr._(_root);
@@ -89,6 +91,34 @@ class _TranslationsCommonAr implements TranslationsCommonEn {
 	@override String get confirm => 'تأكيد';
 	@override String get save => 'حفظ';
 	@override String get delete => 'حذف';
+	@override String get ok => 'حسناً';
+	@override String get close => 'إغلاق';
+	@override String get yes => 'نعم';
+	@override String get no => 'لا';
+}
+
+// Path: dialog
+class _TranslationsDialogAr implements TranslationsDialogEn {
+	_TranslationsDialogAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsDialogErrorAr error = _TranslationsDialogErrorAr._(_root);
+	@override late final _TranslationsDialogConfirmationAr confirmation = _TranslationsDialogConfirmationAr._(_root);
+	@override late final _TranslationsDialogInfoAr info = _TranslationsDialogInfoAr._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsAr implements TranslationsErrorsEn {
+	_TranslationsErrorsAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsErrorsTitlesAr titles = _TranslationsErrorsTitlesAr._(_root);
+	@override late final _TranslationsErrorsMessagesAr messages = _TranslationsErrorsMessagesAr._(_root);
+	@override late final _TranslationsErrorsActionsAr actions = _TranslationsErrorsActionsAr._(_root);
 }
 
 // Path: profile
@@ -131,7 +161,102 @@ class _TranslationsAuthAr implements TranslationsAuthEn {
 	@override String get email => 'البريد الإلكتروني';
 	@override String get password => 'كلمة المرور';
 	@override String get notLoggedIn => 'غير مسجل الدخول';
-	@override String get registerHere => 'سجِّل هنا';
+	@override String get registerHere => 'سجِّل هنا';
+}
+
+// Path: dialog.error
+class _TranslationsDialogErrorAr implements TranslationsDialogErrorEn {
+	_TranslationsDialogErrorAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'خطأ';
+	@override String get defaultMessage => 'حدث خطأ ما';
+	@override String get details => 'التفاصيل';
+	@override String get close => 'إغلاق';
+}
+
+// Path: dialog.confirmation
+class _TranslationsDialogConfirmationAr implements TranslationsDialogConfirmationEn {
+	_TranslationsDialogConfirmationAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get defaultTitle => 'تأكيد';
+	@override String get defaultMessage => 'هل أنت متأكد؟';
+	@override String get confirm => 'تأكيد';
+	@override String get cancel => 'إلغاء';
+}
+
+// Path: dialog.info
+class _TranslationsDialogInfoAr implements TranslationsDialogInfoEn {
+	_TranslationsDialogInfoAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'معلومات';
+	@override String get ok => 'حسناً';
+}
+
+// Path: errors.titles
+class _TranslationsErrorsTitlesAr implements TranslationsErrorsTitlesEn {
+	_TranslationsErrorsTitlesAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get network => 'خطأ في الشبكة';
+	@override String get timeout => 'انتهت المهلة';
+	@override String get sessionExpired => 'انتهت الجلسة';
+	@override String get unauthorized => 'لا يوجد وصول';
+	@override String get invalidCredentials => 'فشل تسجيل الدخول';
+	@override String get fileNotFound => 'الملف غير موجود';
+	@override String get fileTooLarge => 'الملف كبير جداً';
+	@override String get invalidFileType => 'نوع ملف غير صالح';
+	@override String get permissionDenied => 'لا يوجد وصول';
+	@override String get permissionPermanentlyDenied => 'الوصول مطلوب';
+	@override String get serverError => 'خطأ في الخادم';
+	@override String get rateLimitExceeded => 'طلبات كثيرة جداً';
+	@override String get notFound => 'غير موجود';
+	@override String get validation => 'خطأ في التحقق';
+	@override String get unknown => 'خطأ';
+}
+
+// Path: errors.messages
+class _TranslationsErrorsMessagesAr implements TranslationsErrorsMessagesEn {
+	_TranslationsErrorsMessagesAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get network => 'لا يوجد اتصال بالإنترنت';
+	@override String get timeout => 'انتهت مهلة الطلب';
+	@override String get sessionExpired => 'انتهت جلستك. الرجاء تسجيل الدخول مرة أخرى.';
+	@override String get unauthorized => 'ليس لديك إذن للوصول إلى هذا.';
+	@override String get invalidCredentials => 'بريد إلكتروني أو كلمة مرور غير صالحة.';
+	@override String get fileNotFound => 'الملف غير موجود';
+	@override String get fileTooLarge => 'الملف كبير جداً';
+	@override String get invalidFileType => 'نوع ملف غير صالح';
+	@override String get permissionDenied => 'لم تمنح إذن استخدام الصور.';
+	@override String get permissionPermanentlyDenied => 'انتقل إلى الإعدادات لمنح الوصول إلى الصور.';
+	@override String get serverError => 'حدث خطأ ما. الرجاء المحاولة لاحقاً.';
+	@override String get rateLimitExceeded => 'طلبات كثيرة جداً. يرجى الانتظار.';
+	@override String get notFound => 'المورد غير موجود';
+	@override String validationWithField({required Object field, required Object reason}) => '${field} غير صالح: ${reason}';
+	@override String get unknown => 'حدث خطأ غير متوقع.';
+}
+
+// Path: errors.actions
+class _TranslationsErrorsActionsAr implements TranslationsErrorsActionsEn {
+	_TranslationsErrorsActionsAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get goToSettings => 'الذهاب إلى الإعدادات';
 }
 
 // Path: profile.logoutDialog
@@ -193,6 +318,51 @@ extension on TranslationsAr {
 			'common.confirm' => 'تأكيد',
 			'common.save' => 'حفظ',
 			'common.delete' => 'حذف',
+			'common.ok' => 'حسناً',
+			'common.close' => 'إغلاق',
+			'common.yes' => 'نعم',
+			'common.no' => 'لا',
+			'dialog.error.title' => 'خطأ',
+			'dialog.error.defaultMessage' => 'حدث خطأ ما',
+			'dialog.error.details' => 'التفاصيل',
+			'dialog.error.close' => 'إغلاق',
+			'dialog.confirmation.defaultTitle' => 'تأكيد',
+			'dialog.confirmation.defaultMessage' => 'هل أنت متأكد؟',
+			'dialog.confirmation.confirm' => 'تأكيد',
+			'dialog.confirmation.cancel' => 'إلغاء',
+			'dialog.info.title' => 'معلومات',
+			'dialog.info.ok' => 'حسناً',
+			'errors.titles.network' => 'خطأ في الشبكة',
+			'errors.titles.timeout' => 'انتهت المهلة',
+			'errors.titles.sessionExpired' => 'انتهت الجلسة',
+			'errors.titles.unauthorized' => 'لا يوجد وصول',
+			'errors.titles.invalidCredentials' => 'فشل تسجيل الدخول',
+			'errors.titles.fileNotFound' => 'الملف غير موجود',
+			'errors.titles.fileTooLarge' => 'الملف كبير جداً',
+			'errors.titles.invalidFileType' => 'نوع ملف غير صالح',
+			'errors.titles.permissionDenied' => 'لا يوجد وصول',
+			'errors.titles.permissionPermanentlyDenied' => 'الوصول مطلوب',
+			'errors.titles.serverError' => 'خطأ في الخادم',
+			'errors.titles.rateLimitExceeded' => 'طلبات كثيرة جداً',
+			'errors.titles.notFound' => 'غير موجود',
+			'errors.titles.validation' => 'خطأ في التحقق',
+			'errors.titles.unknown' => 'خطأ',
+			'errors.messages.network' => 'لا يوجد اتصال بالإنترنت',
+			'errors.messages.timeout' => 'انتهت مهلة الطلب',
+			'errors.messages.sessionExpired' => 'انتهت جلستك. الرجاء تسجيل الدخول مرة أخرى.',
+			'errors.messages.unauthorized' => 'ليس لديك إذن للوصول إلى هذا.',
+			'errors.messages.invalidCredentials' => 'بريد إلكتروني أو كلمة مرور غير صالحة.',
+			'errors.messages.fileNotFound' => 'الملف غير موجود',
+			'errors.messages.fileTooLarge' => 'الملف كبير جداً',
+			'errors.messages.invalidFileType' => 'نوع ملف غير صالح',
+			'errors.messages.permissionDenied' => 'لم تمنح إذن استخدام الصور.',
+			'errors.messages.permissionPermanentlyDenied' => 'انتقل إلى الإعدادات لمنح الوصول إلى الصور.',
+			'errors.messages.serverError' => 'حدث خطأ ما. الرجاء المحاولة لاحقاً.',
+			'errors.messages.rateLimitExceeded' => 'طلبات كثيرة جداً. يرجى الانتظار.',
+			'errors.messages.notFound' => 'المورد غير موجود',
+			'errors.messages.validationWithField' => ({required Object field, required Object reason}) => '${field} غير صالح: ${reason}',
+			'errors.messages.unknown' => 'حدث خطأ غير متوقع.',
+			'errors.actions.goToSettings' => 'الذهاب إلى الإعدادات',
 			'profile.title' => 'الملف الشخصي',
 			'profile.settings' => 'الإعدادات',
 			'profile.myReservations' => 'حجوزاتي',
@@ -220,7 +390,7 @@ extension on TranslationsAr {
 			'auth.email' => 'البريد الإلكتروني',
 			'auth.password' => 'كلمة المرور',
 			'auth.notLoggedIn' => 'غير مسجل الدخول',
-			'auth.registerHere' => 'سجِّل هنا',
+			'auth.registerHere' => 'سجِّل هنا',
 			_ => null,
 		};
 	}
