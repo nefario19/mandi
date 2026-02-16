@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mandi/i18n/strings.g.dart'; // ← Import!
 
 class ShellView extends StatelessWidget {
   final Widget child;
@@ -11,25 +12,25 @@ class ShellView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context); // ← Get translations!
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mandi'), 
-        automaticallyImplyLeading: false, 
+        title: Center(child: Text(t.app.name)), // ✅ "Mandi" / "ماندي"
+        automaticallyImplyLeading: false,
       ),
-
-      body: child, 
-
+      body: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _getCurrentIndex(context),
         onTap: (index) => _onItemTapped(context, index),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.article),
-            label: 'News',
+            icon: const Icon(Icons.article),
+            label: t.navigation.news, // ✅ Vertaald! (moet je nog toevoegen in JSON)
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person),
+            label: t.navigation.profile, // ✅ Vertaald!
           ),
         ],
       ),

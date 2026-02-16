@@ -1,0 +1,130 @@
+{
+  "@@locale": "en",
+  
+  "app": {
+    "name": "Mandi"
+  },
+
+  "navigation": {
+    "news": "News",
+    "profile": "Profile"
+  },
+
+  "home":{
+    "welcome": "Welcome"
+  },
+  
+  "common": {
+    "logout": "Logout",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "ok": "OK",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No"
+  },
+  
+  "dialog": {
+    "error": {
+      "title": "Error",
+      "defaultMessage": "Something went wrong",
+      "details": "Details",
+      "close": "Close"
+    },
+    "confirmation": {
+      "defaultTitle": "Confirm",
+      "defaultMessage": "Are you sure?",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "info": {
+      "title": "Information",
+      "ok": "OK"
+    }
+  },
+  
+  "errors": {
+    "titles": {
+      "network": "Network Error",
+      "timeout": "Timeout",
+      "sessionExpired": "Session Expired",
+      "unauthorized": "No Access",
+      "invalidCredentials": "Login Failed",
+      "fileNotFound": "File Not Found",
+      "fileTooLarge": "File Too Large",
+      "invalidFileType": "Invalid File Type",
+      "permissionDenied": "No Access",
+      "permissionPermanentlyDenied": "Access Required",
+      "serverError": "Server Error",
+      "rateLimitExceeded": "Too Many Requests",
+      "notFound": "Not Found",
+      "validation": "Validation Error",
+      "unknown": "Error"
+    },
+    "messages": {
+      "network": "No internet connection",
+      "timeout": "Request timed out",
+      "sessionExpired": "Your session has expired. Please login again.",
+      "unauthorized": "You don't have permission to access this.",
+      "invalidCredentials": "Invalid email or password.",
+      "fileNotFound": "File not found",
+      "fileTooLarge": "File is too large",
+      "invalidFileType": "Invalid file type",
+      "permissionDenied": "You haven't given permission to use photos.",
+      "permissionPermanentlyDenied": "Go to Settings to grant access to photos.",
+      "serverError": "Something went wrong. Please try again later.",
+      "rateLimitExceeded": "Too many requests. Please slow down.",
+      "notFound": "Resource not found",
+      "validationWithField": "Invalid $field: $reason",
+      "unknown": "An unexpected error occurred."
+    },
+    "actions": {
+      "goToSettings": "Go to Settings"
+    }
+  },
+  
+  "profile": {
+    "title": "Profile",
+    "settings": "Settings",
+    "myReservations": "My Reservations",
+    "memberSince": "Member since $year",
+    "myReservationsNrThisMonth": "My reservations this month $reservationsThisMonth",
+    "logout": "Logout",
+    "logoutDialog": {
+      "title": "Logout",
+      "message": "Are you sure you want to logout?",
+      "confirm": "Logout",
+      "cancel": "Cancel"
+    }
+  },
+  
+  "settings": {
+    "title": "Settings",
+    "language": {
+      "title": "Language",
+      "dutch": "Nederlands",
+      "english": "English",
+      "arabic": "العربية"
+    },
+    "theme": {
+      "title": "Display",
+      "light": "Light",
+      "lightDesc": "Always light mode",
+      "system": "System",
+      "systemDesc": "Follow device setting",
+      "dark": "Dark",
+      "darkDesc": "Always dark mode"
+    }
+  },
+  
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "email": "Email address",
+    "password": "Password",
+    "notLoggedIn": "Not logged in",
+    "registerHere": "Register here"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "@@locale": "ar",
+  
+  "app": {
+    "name": "ماندي"
+  },
+
+  "navigation": {
+    "news": "الأخبار",
+    "profile": "الملف الشخصي"
+  },
+
+  "home":{
+    "welcome": "أهلاً وسهلاً"
+  },
+  
+  "common": {
+    "logout": "تسجيل الخروج",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "save": "حفظ",
+    "delete": "حذف",
+    "ok": "حسناً",
+    "close": "إغلاق",
+    "yes": "نعم",
+    "no": "لا"
+  },
+  
+  "dialog": {
+    "error": {
+      "title": "خطأ",
+      "defaultMessage": "حدث خطأ ما",
+      "details": "التفاصيل",
+      "close": "إغلاق"
+    },
+    "confirmation": {
+      "defaultTitle": "تأكيد",
+      "defaultMessage": "هل أنت متأكد؟",
+      "confirm": "تأكيد",
+      "cancel": "إلغاء"
+    },
+    "info": {
+      "title": "معلومات",
+      "ok": "حسناً"
+    }
+  },
+  
+  "errors": {
+    "titles": {
+      "network": "خطأ في الشبكة",
+      "timeout": "انتهت المهلة",
+      "sessionExpired": "انتهت الجلسة",
+      "unauthorized": "لا يوجد وصول",
+      "invalidCredentials": "فشل تسجيل الدخول",
+      "fileNotFound": "الملف غير موجود",
+      "fileTooLarge": "الملف كبير جداً",
+      "invalidFileType": "نوع ملف غير صالح",
+      "permissionDenied": "لا يوجد وصول",
+      "permissionPermanentlyDenied": "الوصول مطلوب",
+      "serverError": "خطأ في الخادم",
+      "rateLimitExceeded": "طلبات كثيرة جداً",
+      "notFound": "غير موجود",
+      "validation": "خطأ في التحقق",
+      "unknown": "خطأ"
+    },
+    "messages": {
+      "network": "لا يوجد اتصال بالإنترنت",
+      "timeout": "انتهت مهلة الطلب",
+      "sessionExpired": "انتهت جلستك. الرجاء تسجيل الدخول مرة أخرى.",
+      "unauthorized": "ليس لديك إذن للوصول إلى هذا.",
+      "invalidCredentials": "بريد إلكتروني أو كلمة مرور غير صالحة.",
+      "fileNotFound": "الملف غير موجود",
+      "fileTooLarge": "الملف كبير جداً",
+      "invalidFileType": "نوع ملف غير صالح",
+      "permissionDenied": "لم تمنح إذن استخدام الصور.",
+      "permissionPermanentlyDenied": "انتقل إلى الإعدادات لمنح الوصول إلى الصور.",
+      "serverError": "حدث خطأ ما. الرجاء المحاولة لاحقاً.",
+      "rateLimitExceeded": "طلبات كثيرة جداً. يرجى الانتظار.",
+      "notFound": "المورد غير موجود",
+      "validationWithField": "$field غير صالح: $reason",
+      "unknown": "حدث خطأ غير متوقع."
+    },
+    "actions": {
+      "goToSettings": "الذهاب إلى الإعدادات"
+    }
+  },
+  
+  "profile": {
+    "title": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "myReservations": "حجوزاتي",
+    "memberSince": "عضو منذ $year",
+    "myReservationsNrThisMonth": "حجوزاتي هذا الشهر $reservationsThisMonth",
+    "logout": "تسجيل الخروج",
+    "logoutDialog": {
+      "title": "تسجيل الخروج",
+      "message": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+      "confirm": "تسجيل الخروج",
+      "cancel": "إلغاء"
+    }
+  },
+  
+  "settings": {
+    "title": "الإعدادات",
+    "language": {
+      "title": "اللغة",
+      "dutch": "Nederlands",
+      "english": "English",
+      "arabic": "العربية"
+    },
+    "theme": {
+      "title": "العرض",
+      "light": "فاتح",
+      "lightDesc": "الوضع الفاتح دائماً",
+      "system": "النظام",
+      "systemDesc": "اتبع إعداد الجهاز",
+      "dark": "داكن",
+      "darkDesc": "الوضع الداكن دائماً"
+    }
+  },
+  
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "notLoggedIn": "غير مسجل الدخول",
+    "registerHere": "سجِّل هنا"
+  }
+}

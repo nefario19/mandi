@@ -11,9 +11,6 @@ class RegistrationView extends StatelessWidget {
     final viewModel = locator<AuthViewModel>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Register account'),
-      ),
       body: RegistrationContent(
         viewModel: viewModel,
       ),

@@ -10,14 +10,18 @@ class Environment {
 
   // Database
   static const String databaseId = '68d2cc0a00207193ffeb';
-  static const String votesTableId = 'votes';
   static const String newsTableId = 'news';
-  static const String votesRowChannel = 'databases.$databaseId.tables.$votesTableId.rows';
+  static const String usersCollectionId = 'users';
+
+  // Storage
+  static const String bucketID = '698f385b00095eb336ac';
 
   // Design constants
   static const double size4 = 4.0;
   static const double size8 = 8.0;
   static const double size12 = 12.0;
   static const double size16 = 16.0;
+  static const double size24 = 24.0;
   static const double size32 = 32.0;
+  static const double size40 = 40.0;
 }
