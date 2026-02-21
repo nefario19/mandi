@@ -106,30 +106,49 @@ class SettingsView extends StatelessWidget {
                 theme: theme,
               ),
               const Gap(16),
-              ActionTile(
-                label: 'Delete account',
-                onTap: () async {
-                  final confirmed = await _viewModel.requestAccountDeletion();
-                  if (!confirmed || !context.mounted) return;
-                  await showModalBottomSheet(
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    isDismissible: false,
-                    enableDrag: false,
-                    builder: (context) => Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                          color: theme.dialogBackgroundColor,
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          )),
-                      child: DeleteProgressBottomSheet(viewModel: _viewModel),
-                    ),
-                  );
+              ValueListenableBuilder(
+                valueListenable: _viewModel.userIsMarkedForDeletion,
+                builder: (context, markedForDeletion, _) {
+                  // If marked for deletion
+                  return markedForDeletion
+                      ? ActionTile(
+                          label: 'Cancel deletion 😱',
+                          onTap: () async {
+                            _viewModel.cancelAccountDeletion();
+                          },
+                          isDanger: true,
+                          showChevron: false,
+                          centerContent: true,
+                        )
+                      : ActionTile(
+                          label: 'Delete account',
+                          onTap: () async {
+                            final confirmed = await _viewModel.requestAccountDeletion();
+
+                            if (!confirmed || !context.mounted) return;
+
+                            await showModalBottomSheet<void>(
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              isDismissible: false,
+                              enableDrag: false,
+                              builder: (context) => Container(
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  color: theme.dialogBackgroundColor,
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(20),
+                                  ),
+                                ),
+                                child: DeleteProgressBottomSheet(viewModel: _viewModel),
+                              ),
+                            );
+                          },
+                          isDanger: true,
+                          showChevron: false,
+                          centerContent: true,
+                        );
                 },
-                isDanger: true,
-                showChevron: false,
-                centerContent: true,
               ),
             ],
           );

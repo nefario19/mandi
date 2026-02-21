@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mandi/core/viewmodels/auth_view_model.dart';
 
-enum DeletionStep {
-  idle,
-  removingAvatar,
-  deletingData,
-  schedulingDeletion,
-  completed,
-}
-
 class DeleteProgressBottomSheet extends StatefulWidget {
   final AuthViewModel viewModel;
+
   const DeleteProgressBottomSheet({
     super.key,
     required this.viewModel,
@@ -21,69 +14,69 @@ class DeleteProgressBottomSheet extends StatefulWidget {
 }
 
 class _DeleteProgressBottomSheetState extends State<DeleteProgressBottomSheet> {
-  DeletionStep _currentStep = DeletionStep.idle;
-
   @override
   void initState() {
     super.initState();
-    _startDeletionProcess();
-  }
-
-  Future<void> _startDeletionProcess() async {
-    setState(() => _currentStep = DeletionStep.removingAvatar);
-    await widget.viewModel.deleteAvatar();
-
-    setState(() => _currentStep = DeletionStep.deletingData);
-    await widget.viewModel.softDeleteUserData();
-
-    setState(() => _currentStep = DeletionStep.schedulingDeletion);
-    await widget.viewModel.blockAccount();
-
-    setState(() => _currentStep = DeletionStep.completed);
-
-    await Future.delayed(Duration(seconds: 2));
-    if (mounted) {
-      Navigator.of(context).pop();
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final deletionComplete = await widget.viewModel.startAccountDeletion();
+      if (deletionComplete) Navigator.pop(context);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      color: theme.dialogBackgroundColor,
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Deleting your account...',
-            style: theme.textTheme.titleLarge?.copyWith(
-              color: theme.colorScheme.onSurface,
-            ),
+    return ValueListenableBuilder<DeletionStep>(
+      valueListenable: widget.viewModel.deletionStepNotifier,
+      builder: (context, step, child) {
+        return Container(
+          color: theme.dialogBackgroundColor,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                step == DeletionStep.completed
+                    ? 'We\'re sorry to see you go 😢'
+                    : 'Preparing to delete your account...',
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              const SizedBox(height: 24),
+              DeletionStepItem(
+                label: 'Scheduling deletion of profile picture...',
+                isCompleted: step.index > DeletionStep.removingAvatar.index,
+                isActive: step == DeletionStep.removingAvatar,
+              ),
+              const SizedBox(height: 16),
+              DeletionStepItem(
+                label: 'Scheduling deletion of user data...',
+                isCompleted: step.index > DeletionStep.deletingData.index,
+                isActive: step == DeletionStep.deletingData,
+              ),
+              const SizedBox(height: 16),
+              DeletionStepItem(
+                label: 'Scheduling deletion of account...',
+                isCompleted: step.index > DeletionStep.schedulingDeletion.index,
+                isActive: step == DeletionStep.schedulingDeletion,
+              ),
+              if (step == DeletionStep.completed) ...[
+                const SizedBox(height: 16),
+                Text(
+                  'Your account will be permanently deleted\nafter 30 days.',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ],
           ),
-          const SizedBox(height: 24),
-          DeletionStepItem(
-            label: 'Removing profile picture...',
-            isCompleted: _currentStep.index > DeletionStep.removingAvatar.index,
-            isActive: _currentStep == DeletionStep.removingAvatar,
-          ),
-          const SizedBox(height: 16),
-          DeletionStepItem(
-            label: 'Deleting user data...',
-            isCompleted: _currentStep.index > DeletionStep.deletingData.index,
-            isActive: _currentStep == DeletionStep.deletingData,
-          ),
-          const SizedBox(height: 16),
-          DeletionStepItem(
-            label: 'Scheduling account removal...',
-            isCompleted: _currentStep.index > DeletionStep.schedulingDeletion.index,
-            isActive: _currentStep == DeletionStep.schedulingDeletion,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
